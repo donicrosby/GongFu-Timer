@@ -5,9 +5,9 @@
   "author": "Stijn Ruts",
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
     "react-helmet": "^5.0.3",
     "react-router-dom": "^4.1.1",
+    "react-snapshot": "^1.0.4",
     "styled-components": "^1.4.6"
   },
   "devDependencies": {
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && react-snapshot",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
