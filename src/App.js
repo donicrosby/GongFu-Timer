@@ -1,35 +1,42 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
 
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
+
 const Home = () => (
   <div>
-    <h2>Home</h2>
+    <Title>Home</Title>
   </div>
 )
 
 const About = () => (
   <div>
     <Helmet title="About" />
-    <h2>About</h2>
+    <Title>About</Title>
   </div>
 )
 
 const Topic = ({ match }) => (
   <div>
     <Helmet title={match.params.topicId} />
-    <h3>{match.params.topicId}</h3>
+    <Title>{match.params.topicId}</Title>
   </div>
 )
 
 const Topics = ({ match }) => (
   <div>
     <Helmet title="Topics" />
-    <h2>Topics</h2>
+    <Title>Topics</Title>
     <ul>
       <li>
         <Link to={`${match.url}/rendering`}>
@@ -50,7 +57,7 @@ const Topics = ({ match }) => (
 
     <Route path={`${match.url}/:topicId`} component={Topic}/>
     <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
+      <Title>Please select a topic.</Title>
     )}/>
   </div>
 )
