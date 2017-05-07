@@ -11,13 +11,14 @@
     "styled-components": "^1.4.6"
   },
   "devDependencies": {
+    "favicons": "^4.8.3",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && react-snapshot",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "favicons": "node favicons/generate.js"
   },
   "license": "GPL-3.0"
 }
