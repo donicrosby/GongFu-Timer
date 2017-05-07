@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Helmet from 'react-helmet';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,18 +14,21 @@ const Home = () => (
 
 const About = () => (
   <div>
+    <Helmet title="About" />
     <h2>About</h2>
   </div>
 )
 
 const Topic = ({ match }) => (
   <div>
+    <Helmet title={match.params.topicId} />
     <h3>{match.params.topicId}</h3>
   </div>
 )
 
 const Topics = ({ match }) => (
   <div>
+    <Helmet title="Topics" />
     <h2>Topics</h2>
     <ul>
       <li>
@@ -54,6 +58,8 @@ const Topics = ({ match }) => (
 const App = () => (
   <Router>
     <div>
+      <Helmet defaultTitle="My Site" />
+
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
