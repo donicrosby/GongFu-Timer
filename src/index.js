@@ -1,5 +1,5 @@
 import React from 'react';
 import { render } from 'react-snapshot';
-import App from './App';
+import App from './App.jsx';
 
 render(<App />, document.getElementById('root'));

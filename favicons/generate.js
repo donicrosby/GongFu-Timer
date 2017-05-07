@@ -31,10 +31,15 @@ var template =
       <meta charset="utf-8">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+      <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+      <style> .container { margin-top: 2em; margin-bottom: 3em; } </style>
       %s
     </head>
     <body>
-      <div id="root"></div>
+      <div id="root" class="container"></div>
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     </body>
   </html>`;
 
