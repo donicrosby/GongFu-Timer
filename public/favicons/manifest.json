@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "any",
   "start_url": "/?homescreen=1",
-  "background_color": "#4caf50",
+  "background_color": "#FFFFFF",
   "icons": [
     {
       "src": "/favicons/android-chrome-36x36.png",
