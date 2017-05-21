@@ -18,16 +18,16 @@
 <meta name="apple-mobile-web-app-title" content="GongFu Timer"/>
 <link rel="manifest" href="/favicons/manifest.json"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="theme-color" content="#FFFFFF"/>
+<meta name="theme-color" content="#fff"/>
 <meta name="application-name" content="GongFu Timer"/>
 <link rel="yandex-tableau-widget" href="/favicons/yandex-browser-manifest.json"/>
+<meta name="msapplication-TileColor" content="#fff"/>
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
+<meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
 <link rel="shortcut icon" href="/favicons/favicon.ico"/>
-<meta name="msapplication-TileColor" content="#FFFFFF"/>
-<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
-<meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/favicons/apple-touch-startup-image-320x460.png"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x920.png"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x1096.png"/>

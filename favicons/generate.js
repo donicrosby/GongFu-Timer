@@ -6,7 +6,10 @@ var configuration = {
   appName: 'GongFu Timer',
   appDescription: 'A timer application for use in GongFu tea sessions.',
   developerName: 'Stijn Ruts',
-  background: "#FFFFFF",
+  theme_color: "#000000",
+  background_color: "#FFFFFF",
+  display: "standalone",
+  start_url: "./index.html",
   path: "/favicons/",
   icons: {
     android: true,
