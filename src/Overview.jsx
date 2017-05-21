@@ -62,7 +62,7 @@ const Overview = () => (
   <div>
     <Collection>
       <CollectionHeader>GongFu Timer</CollectionHeader>
-      { TeaRepository.getItems().map(item =>
+      { TeaRepository.getAll().map(item =>
         <CollectionTeaItem
           key={item.key}
           name={item.name}

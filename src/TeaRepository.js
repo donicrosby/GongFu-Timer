@@ -1,33 +1,55 @@
-const items = [
-  {
-    key: 'SSRrZTgFqM',
-    name: 'Green',
-    times: [10, 20, 30]
-  }, {
-    key: 'agPz2M9fl3',
-    name: 'Black',
-    times: [20, 45, 60, 80]
-  }, {
-    key: '3HSoYQ0t4H',
-    name: 'Oolong',
-    times: [20, 45, 60]
-  }, {
-    key: '7ipaQpHGk0',
-    name: 'PuErh',
-    times: [20, 45, 60]
+import store from 'store';
+import shortid from 'shortid';
+
+const KEY = 'teas';
+
+const EXAMPLE = {
+  name: 'Example',
+  times: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+  order: 1,
+};
+
+const TeaRepository = {
+  get: key => {
+    const teas = getTeas();
+    return teas[key];
   },
-];
 
-class TeaRepository {
+  getAll: () => {
+    const teas = getTeas();
+    return Object.values(teas).sort(item => item.order);
+  },
 
-  static getItems() {
-    return items
+  set: value => {
+    if (!value.key) {
+      value.key = shortid.generate();
+    }
+    let teas = getTeas();
+    teas[value.key] = value;
+    return setTeas(teas);
+  },
+
+  delete: key => {
+    let teas = getTeas();
+    delete teas[key];
+    return setTeas(teas);
+  }
+};
+
+function getTeas() {
+  let teas = store.get(KEY);
+
+  if (teas instanceof Object) {
+    return teas;
   }
 
-  static getItem(key) {
-    return items.find(item => item.key === key);
-  }
+  setTeas({});
+  TeaRepository.set(EXAMPLE);
+  return getTeas();
+}
 
+function setTeas(teas) {
+  return store.set(KEY, teas);
 }
 
 export default TeaRepository;
