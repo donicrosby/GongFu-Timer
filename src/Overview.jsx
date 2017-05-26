@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components';
 import {Button, Collection, CollectionItem} from 'react-materialize';
 import TeaRepository from './TeaRepository';
-import TimeMath from './TimeMath';
+import Format from './Format';
 
 const CollectionHeader = props => {
   const Header = styled.h1`
@@ -44,7 +44,7 @@ const CollectionTeaItem = props => {
     <Item>
       <TeaLink to={ '/edit/' + props.editId }>
         { props.name }
-        <br/><Times>{ props.times.map(TimeMath.formatSeconds).join(', ') }</Times>
+        <br/><Times>{ props.times.map(Format.formatSeconds).join(', ') }</Times>
       </TeaLink>
     </Item>
   );
