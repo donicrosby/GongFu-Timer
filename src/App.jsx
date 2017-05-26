@@ -13,7 +13,7 @@ const App = () => (
       { Favicons }
 
       <Route exact path="/" component={Overview}/>
-      <Route path="/edit" component={Edit}/>
+      <Route path="/edit/:teaId?" component={Edit}/>
       <Route path="/timer" component={Timer}/>
     </div>
   </BrowserRouter>

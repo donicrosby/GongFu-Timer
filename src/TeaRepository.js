@@ -3,6 +3,12 @@ import shortid from 'shortid';
 
 const KEY = 'teas';
 
+const EMPTY = {
+  name: '',
+  times: [10],
+  order: Number.MAX_SAFE_INTEGER,
+};
+
 const EXAMPLE = {
   name: 'Example',
   times: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
@@ -18,6 +24,10 @@ const TeaRepository = {
   getAll: () => {
     const teas = getTeas();
     return Object.values(teas).sort(item => item.order);
+  },
+
+  getNew: () => {
+    return EMPTY;
   },
 
   set: value => {
