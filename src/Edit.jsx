@@ -21,8 +21,8 @@ const DeleteButton = props => {
   `;
   return (
     <Top className="fixed-action-btn">
-      <Button floating className="red" onClick={props.onClick}>
-        <Icon large>delete</Icon>
+      <Button floating className="red" waves="light" onClick={props.onClick}>
+        <Icon>delete</Icon>
       </Button>
     </Top>
   );
@@ -142,7 +142,7 @@ class Edit extends React.Component {
           />
         ) }
 
-        <Link to="/">
+        <Link to={'/timer/' + this.state.key}>
           <Button large className="green" waves="light" onClick={this.handleSave}>
             Save <Icon right>send</Icon>
           </Button>

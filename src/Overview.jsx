@@ -42,7 +42,7 @@ const CollectionTeaItem = props => {
   `;
   return (
     <Item>
-      <TeaLink to={ '/edit/' + props.editId }>
+      <TeaLink to={'/timer/' + props.editId}>
         { props.name }
         <br/><Times>{ props.times.map(Format.formatSeconds).join(', ') }</Times>
       </TeaLink>

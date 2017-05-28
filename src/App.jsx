@@ -14,7 +14,7 @@ const App = () => (
 
       <Route exact path="/" component={Overview}/>
       <Route path="/edit/:teaId?" component={Edit}/>
-      <Route path="/timer" component={Timer}/>
+      <Route path="/timer/:teaId" component={Timer}/>
     </div>
   </BrowserRouter>
 );
