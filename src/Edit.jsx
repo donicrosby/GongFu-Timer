@@ -8,7 +8,7 @@ import Format from './Format';
 
 const NameInput = props => (
   <Row>
-    <Input s={12} label="Name" style={{fontSize: '1.8rem'}}
+    <Input s={12} label={false} style={{fontSize: '1.8rem'}}
       value={props.value} onChange={props.onChange}/>
   </Row>
 );
