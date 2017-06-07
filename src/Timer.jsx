@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import {Button, Icon} from 'react-materialize';
+import Push from 'push.js'
 import TeaRepository from './TeaRepository';
 import Hourglass from './Hourglass';
 import Progress from './Progress';
@@ -46,6 +47,7 @@ class Timer extends React.Component {
   componentDidMount() {
     this.setHourglass();
     requestAnimationFrame(this.updateHourglassData);
+    Push.Permission.request();
   }
 
   componentWillUnmount() {
@@ -56,7 +58,10 @@ class Timer extends React.Component {
     this.stopHourglass();
 
     const callback = function() {
-      alert('Your tea is done!');
+      Push.create('Your tea is ready!', {
+        vibrate: [200, 100, 200, 100, 200],
+        timeout: 5000,
+      });
     };
     const duration = this.state.tea.times[this.state.infusion - 1] * 1000;
     this.hourglass = new Hourglass(callback, duration);

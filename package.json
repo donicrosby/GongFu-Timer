@@ -5,6 +5,7 @@
   "author": "Stijn Ruts",
   "dependencies": {
     "ordinal": "^1.0.2",
+    "push.js": "^0.0.13",
     "react": "^15.5.4",
     "react-helmet": "^5.0.3",
     "react-materialize": "^0.18.3",
