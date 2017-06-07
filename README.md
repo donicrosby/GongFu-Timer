@@ -2,6 +2,9 @@
 
 A timer application for use in [GongFu](https://en.wikipedia.org/wiki/Gongfu_tea_ceremony) tea sessions.
 
+**[:sparkles::sparkles::sparkles: Try it now :sparkles::sparkles::sparkles:](https://gongfu-timer.surge.sh)**  
+(**Note**: Data is saved in LocalStorage)
+
 ## Setup
 
 Install the dependencies with `yarn install` or `npm install`.

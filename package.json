@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build && react-snapshot",
     "test": "react-scripts test --env=jsdom",
-    "favicons": "node favicons/generate.js"
+    "favicons": "node favicons/generate.js",
+    "publish": "npm run build && surge ./build https://gongfu-timer.surge.sh"
   },
   "license": "GPL-3.0"
 }
