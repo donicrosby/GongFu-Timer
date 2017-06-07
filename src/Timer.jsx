@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components';
 import {Button, Icon} from 'react-materialize';
 import Push from 'push.js'
+import BackLink from './BackLink';
 import TeaRepository from './TeaRepository';
 import Hourglass from './Hourglass';
 import Progress from './Progress';
@@ -164,6 +165,8 @@ class Timer extends React.Component {
     `;
     return (
       <div>
+        <BackLink to="/"/>
+
         <Title>{this.state.tea.name}</Title>
         <SubTitle>{Format.formatOrdinal(this.state.infusion)} infusion</SubTitle>
         <EditButton to={'/edit/'+this.state.tea.key}/>

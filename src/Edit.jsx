@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import {Row, Col, Button, Icon, Input} from 'react-materialize';
+import BackLink from './BackLink';
 import TeaRepository from './TeaRepository';
 import Format from './Format';
 
@@ -123,6 +124,7 @@ class Edit extends React.Component {
     return (
       <div>
         <Helmet title={this.state.name.length > 0 ? 'Editing ' + this.state.name : 'Edit'} />
+        <BackLink to={'/timer/' + this.state.key}/>
 
         <NameInput value={this.state.name} onChange={this.handleNameChange}/>
 
