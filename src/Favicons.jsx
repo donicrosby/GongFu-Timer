@@ -3,8 +3,7 @@
   // It is generated with 'npm run favicons'
   import React from 'react';
   import Helmet from 'react-helmet';
-  export default <Helmet><link rel="icon" type="image/png" sizes="228x228" href="/favicons/coast-228x228.png"/>
-<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png"/>
+  export default <Helmet><link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png"/>
 <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png"/>
 <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png"/>
 <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png"/>
@@ -25,9 +24,6 @@
 <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
 <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
-<link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
-<link rel="shortcut icon" href="/favicons/favicon.ico"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/favicons/apple-touch-startup-image-320x460.png"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x920.png"/>
 <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x1096.png"/>

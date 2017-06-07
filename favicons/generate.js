@@ -57,6 +57,11 @@ var callback = function (error, response) {
 
   if (response.html) {
     var tags = response.html;
+    tags = tags.filter(tag => {
+      if (/sizes="32x32"/.test(tag)) { return true; }
+      if (/rel="(shortcut)?\s*icon"/.test(tag)) { return false; }
+      return true;
+    });
     tags = tags.map(tag => tag.replace(/([^\/])>/, '$1/>'));
     var content = template.replace('%s', tags.join('\n'));
     fs.writeFileSync(component, content);

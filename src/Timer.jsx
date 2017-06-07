@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import {Button, Icon} from 'react-materialize';
 import Push from 'push.js'
@@ -8,6 +7,7 @@ import TeaRepository from './TeaRepository';
 import Hourglass from './Hourglass';
 import Progress from './Progress';
 import TimeDisplay from './TimeDisplay';
+import FaviconProgress from './FaviconProgress';
 import ControlButtons from './ControlButtons';
 import Format from './Format';
 
@@ -35,7 +35,8 @@ class Timer extends React.Component {
     this.hourglass = null;
     this.setHourglass = this.setHourglass.bind(this);
     this.stopHourglass = this.stopHourglass.bind(this);
-    this.updateHourglassData = this.updateHourglassData.bind(this);
+    this.highPriorityUpdate = this.highPriorityUpdate.bind(this);
+    this.lowPriorityUpdate = this.lowPriorityUpdate.bind(this);
 
     this.state = {
       tea: TeaRepository.get(match.params.teaId),
@@ -46,12 +47,19 @@ class Timer extends React.Component {
 
   componentDidMount() {
     this.setHourglass();
-    requestAnimationFrame(this.updateHourglassData);
+    this.faviconProgress = new FaviconProgress();
     Push.Permission.request();
+
+    this.highPriorityUpdate();
+    this.lowPriorityUpdate();
   }
 
   componentWillUnmount() {
+    cancelAnimationFrame(this.highPriorityFrame);
+    clearTimeout(this.lowPriorityTimeout);
+
     this.stopHourglass();
+    this.faviconProgress.reset();
   }
 
   setHourglass() {
@@ -72,25 +80,46 @@ class Timer extends React.Component {
     this.hourglass.pause();
   }
 
-  updateHourglassData() {
-    if (!this.hourglass) { return; }
+  highPriorityUpdate() {
+    if (this.hourglass) {
 
-    const hourglassState = this.hourglass.getState();
-    if (hourglassState !== this.state.hourglass_state) {
-      this.setState({hourglass_state: hourglassState});
+      const hourglassState = this.hourglass.getState();
+      if (hourglassState !== this.state.hourglass_state) {
+        this.setState({hourglass_state: hourglassState});
+      }
+
+      if (this.timeComponent) {
+        const timeLeft = Math.round(this.hourglass.getTimeLeft() / 1000);
+        this.timeComponent.setTime(timeLeft);
+      }
+
+      if (this.progressComponent) {
+        const percentageDone = this.hourglass.getPercentageDone();
+        this.progressComponent.setProgress(percentageDone);
+      }
+
     }
+    this.highPriorityFrame = requestAnimationFrame(this.highPriorityUpdate);
+  }
 
-    if (this.timeComponent) {
+  lowPriorityUpdate() {
+    if (this.hourglass) {
+
       const timeLeft = Math.round(this.hourglass.getTimeLeft() / 1000);
-      this.timeComponent.setTime(timeLeft);
-    }
+      let title = 'Timer: ' + this.state.tea.name;
+      if (this.state.hourglass_state === 'running') {
+        title = 'Brewing: ' + Format.formatTime(timeLeft);
+      }
+      if (this.state.hourglass_state === 'paused') {
+        title = 'Paused: ' + Format.formatTime(timeLeft);
+      }
+      document.title = title;
 
-    if (this.progressComponent) {
       const percentageDone = this.hourglass.getPercentageDone();
-      this.progressComponent.setProgress(percentageDone);
-    }
+      this.faviconProgress.setProgress(percentageDone, this.state.hourglass_state);
 
-    requestAnimationFrame(this.updateHourglassData);
+    }
+    this.lowPriorityTimeout = setTimeout(this.lowPriorityUpdate, 500);
   }
 
   controlButtons() {
@@ -132,8 +161,6 @@ class Timer extends React.Component {
     `;
     return (
       <div>
-        <Helmet title="Timer" />
-
         <Title>{this.state.tea.name}</Title>
         <SubTitle>{Format.formatOrdinal(this.state.infusion)} infusion</SubTitle>
         <EditButton to={'/edit/'+this.state.tea.key}/>
