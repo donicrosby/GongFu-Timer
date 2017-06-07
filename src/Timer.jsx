@@ -38,8 +38,11 @@ class Timer extends React.Component {
     this.highPriorityUpdate = this.highPriorityUpdate.bind(this);
     this.lowPriorityUpdate = this.lowPriorityUpdate.bind(this);
 
+    const tea = TeaRepository.get(match.params.teaId);
+    if (tea === undefined) { window.location = '/'; }
+
     this.state = {
-      tea: TeaRepository.get(match.params.teaId),
+      tea: tea,
       infusion: 1,
       hourglass_state: 'ready',
     };
