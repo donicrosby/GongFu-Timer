@@ -14,20 +14,34 @@ const NameInput = props => (
   </Row>
 );
 
-const DeleteButton = props => {
+const DeleteButton = () => {
   const Top = styled.div`
     position: absolute;
     bottom: initial;
     top: 23px;
   `;
   return (
-    <Top className="fixed-action-btn">
-      <Button floating className="red" waves="light" onClick={props.onClick}>
+    <Top className="fixed-action-btn" data-target="modal-delete">
+      <Button floating className="red" waves="light">
         <Icon>delete</Icon>
       </Button>
     </Top>
   );
 };
+
+const DeleteModal = (props) => (
+  <div id="modal-delete" className="modal">
+    <div className="modal-content">
+      <h4>{props.text}</h4>
+    </div>
+    <div className="modal-footer">
+      <Link className="modal-action modal-close waves-effect waves-green btn-flat"
+            to="/" onClick={props.onAgree}>
+        Agree
+      </Link>
+    </div>
+  </div>
+);
 
 const ActionButton = props => {
   const OffsetButton = styled(Button)`
@@ -81,6 +95,10 @@ class Edit extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
+  componentDidMount() {
+    $('.modal').modal(); // eslint-disable-line no-undef
+  }
+
   handleNameChange(e) {
     this.setState({name: e.target.value});
   }
@@ -121,6 +139,13 @@ class Edit extends React.Component {
   }
 
   render() {
+    const deleteButton = (
+      <div>
+        <DeleteButton/>
+        <DeleteModal text={'Delete ' + this.state.name + '?'}
+          onAgree={this.handleDelete}/>
+      </div>
+    );
     return (
       <div>
         <Helmet title={this.state.name.length > 0 ? 'Editing ' + this.state.name : 'Edit'} />
@@ -128,9 +153,7 @@ class Edit extends React.Component {
 
         <NameInput value={this.state.name} onChange={this.handleNameChange}/>
 
-        <Link to="/">
-          <DeleteButton onClick={this.handleDelete}/>
-        </Link>
+        {this.state.key !== undefined ? deleteButton : null}
 
         { this.state.times.map((time, index) =>
           <InfusionInput
