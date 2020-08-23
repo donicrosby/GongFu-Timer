@@ -24,10 +24,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && react-snapshot",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "favicons": "node favicons/generate.js",
-    "postbuild": "react-snap",
     "publish": "npm run build && surge ./build https://gongfu-timer.surge.sh"
   },
   "license": "GPL-3.0",
@@ -42,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "reactSnap": {
+    "fixWebpackChunksIssue": false,
+    "navigateFallback": "publicUrl + '/index.html'"
   }
 }

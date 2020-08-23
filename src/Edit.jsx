@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { withRouter } from "react-router";
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import M from 'materialize-css';
@@ -124,10 +125,10 @@ const InfusionInput = props => {
 };
 
 class Edit extends React.Component {
-  constructor({match, props}) {
+  constructor(props) {
     super(props);
 
-    let tea = TeaRepository.get(match.params.teaId);
+    let tea = TeaRepository.get(props.match.params.teaId);
     if (tea === undefined) { tea = TeaRepository.getNew(); }
     this.state = tea;
     this.state["showDeleteModal"] = false
@@ -232,4 +233,4 @@ class Edit extends React.Component {
   }
 };
 
-export default Edit;
+export default withRouter(Edit);

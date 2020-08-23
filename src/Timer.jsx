@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { withRouter } from "react-router";
 import styled from 'styled-components';
 import {Button, Icon} from 'react-materialize';
 import Push from 'push.js'
@@ -11,6 +12,7 @@ import TimeDisplay from './TimeDisplay';
 import FaviconProgress from './FaviconProgress';
 import ControlButtons from './ControlButtons';
 import Format from './Format';
+import { NoMatch } from './App.jsx'
 
 const Top = styled.div`
   position: absolute;
@@ -42,7 +44,7 @@ const Wrapper = styled.div`
 `;
 
 class Timer extends React.Component {
-  constructor({match, props}) {
+  constructor(props) {
     super(props);
 
     this.hourglass = null;
@@ -51,32 +53,37 @@ class Timer extends React.Component {
     this.highPriorityUpdate = this.highPriorityUpdate.bind(this);
     this.lowPriorityUpdate = this.lowPriorityUpdate.bind(this);
 
-    const tea = TeaRepository.get(match.params.teaId);
-    if (tea === undefined) { window.location = '/'; }
+    const tea = TeaRepository.get(props.match.params.teaId);
 
     this.state = {
       tea: tea,
       infusion: 1,
       hourglass_state: 'ready',
-      teaId: match.params.teaId
+      teaId: props.match.params.teaId,
+      shouldRender: !(tea === undefined),
+      props: props
     };
   }
 
   componentDidMount() {
-    this.setHourglass();
-    this.faviconProgress = new FaviconProgress();
-    Push.Permission.request();
+    if (this.state.shouldRender) {
+      this.setHourglass();
+      this.faviconProgress = new FaviconProgress();
+      Push.Permission.request();
 
-    this.highPriorityUpdate();
-    this.lowPriorityUpdate();
+      this.highPriorityUpdate();
+      this.lowPriorityUpdate();
+    }
   }
 
   componentWillUnmount() {
-    cancelAnimationFrame(this.highPriorityFrame);
-    clearTimeout(this.lowPriorityTimeout);
+    if(this.state.shouldRender) {
+      cancelAnimationFrame(this.highPriorityFrame);
+      clearTimeout(this.lowPriorityTimeout);
 
-    this.stopHourglass();
-    this.faviconProgress.reset();
+      this.stopHourglass();
+      this.faviconProgress.reset();
+    }
   }
 
   setHourglass() {
@@ -166,26 +173,33 @@ class Timer extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <BackLink to="/"/>
+    if (this.state.shouldRender) {
+      return (
+        <div>
+          <BackLink to="/"/>
 
-        <Title>{this.state.tea.name}</Title>
-        <SubTitle>{Format.formatOrdinal(this.state.infusion)} infusion</SubTitle>
-        <EditButton to={'/edit/'+this.state.tea.key}/>
+          <Title>{this.state.tea.name}</Title>
+          <SubTitle>{Format.formatOrdinal(this.state.infusion)} infusion</SubTitle>
+          <EditButton to={'/edit/'+this.state.tea.key}/>
 
-        <Wrapper>
-          <Progress ref={ref => this.progressComponent = ref}/>
-          <TimeDisplay
-            state={this.state.hourglass_state}
-            ref={ref => this.timeComponent = ref}
-          />
-        </Wrapper>
+          <Wrapper>
+            <Progress ref={ref => this.progressComponent = ref}/>
+            <TimeDisplay
+              state={this.state.hourglass_state}
+              ref={ref => this.timeComponent = ref}
+            />
+          </Wrapper>
 
-        {this.controlButtons()}
-      </div>
-    );
+          {this.controlButtons()}
+        </div>
+      );
+    } else {
+      this.state.props.history.push("/")
+      return (
+        <NoMatch {...this.state.props} />
+      )
+    }
   }
 }
 
-export default Timer;
+export default withRouter(Timer);
