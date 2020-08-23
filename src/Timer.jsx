@@ -95,7 +95,13 @@ class Timer extends React.Component {
         timeout: 5000,
       });
     };
-    const duration = this.state.tea.times[this.state.infusion - 1] * 1000;
+    var duration
+    if (this.state.infusion <= this.state.tea.times.length) {
+      duration = this.state.tea.times[this.state.infusion - 1] * 1000;
+    } else {
+      duration = this.state.tea.times[this.state.tea.times.length - 1] * 1000;
+    }
+
     this.hourglass = new Hourglass(callback, duration);
   }
 
