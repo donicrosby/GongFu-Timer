@@ -63,7 +63,7 @@ const AddTeaLink = () => (
 );
 
 const Overview = () => (
-  <div>
+  <div style={{overflow: 'auto'}}>
     <Collection>
       <CollectionHeader>GongFu Timer</CollectionHeader>
       { TeaRepository.getAll().map(item =>

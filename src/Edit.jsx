@@ -201,7 +201,7 @@ class Edit extends React.Component {
       </div>
     );
     return (
-      <div>
+      <div style={{overflow: 'auto'}}>
         <Helmet title={this.state.name.length > 0 ? 'Editing ' + this.state.name : 'Edit'} />
         <BackLink to={'/timer/' + this.state.key}/>
 

@@ -59,7 +59,6 @@ class Timer extends React.Component {
       tea: tea,
       infusion: 1,
       hourglass_state: 'ready',
-      teaId: props.match.params.teaId,
       shouldRender: !(tea === undefined),
       props: props
     };
