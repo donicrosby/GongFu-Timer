@@ -13,7 +13,7 @@ const Fixed = styled(Button)`
 
 const HomeLink = (props) => {
   return (
-    <Link to={props.to}>
+    <Link to={props.to} >
       <Fixed className="blue-grey darken-3" waves="light">
         <Icon>chevron_left</Icon>
       </Fixed>

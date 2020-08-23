@@ -181,7 +181,7 @@ class Timer extends React.Component {
     if (this.state.shouldRender) {
       return (
         <div>
-          <BackLink to="/"/>
+          <BackLink to="/" />
 
           <Title>{this.state.tea.name}</Title>
           <SubTitle>{Format.formatOrdinal(this.state.infusion)} infusion</SubTitle>
@@ -199,7 +199,6 @@ class Timer extends React.Component {
         </div>
       );
     } else {
-      this.state.props.history.push("/")
       return (
         <NoMatch {...this.state.props} />
       )

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { withRouter } from "react-router";
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -128,16 +127,16 @@ class Edit extends React.Component {
     super(props);
 
     let tea = TeaRepository.get(props.match.params.teaId);
+    this.state = {...props};
     if (tea === undefined) { tea = TeaRepository.getNew(); }
-    this.state = tea;
-    this.state["showDeleteModal"] = false
+    this.state["tea"] = {...tea};
+    this.state["showDeleteModal"] = false;
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleTimeAdd = this.handleTimeAdd.bind(this);
     this.handleTimeDelete = this.handleTimeDelete.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleSave(tea);
   }
 
   componentDidMount() {
@@ -145,16 +144,18 @@ class Edit extends React.Component {
   }
 
   handleNameChange(e) {
-    this.setState({name: e.target.value});
+    let tea = {...this.state.tea};
+    tea.name = e.target.value;
+    this.setState({tea: tea});
   }
 
   handleTimeChange(index, value) {
-    let times = this.state.times;
+    let times = {...this.state.tea.times};
     times[index] = parseInt(value, 10);
     this.setState({times: times});
   }
   handleTimeAdd() {
-    let times = this.state.times;
+    let times = {...this.state.tea.times};
     let newValue = 10;
     if (times.length === 1) {
       newValue = times[0] + 10;
@@ -169,13 +170,13 @@ class Edit extends React.Component {
     this.setState({times: times});
   }
   handleTimeDelete(index) {
-    let times = this.state.times;
+    let times = {...this.state.tea.times};
     times.splice(index, 1);
     this.setState({times: times});
   }
 
   handleDelete() {
-    TeaRepository.delete(this.state.key);
+    TeaRepository.delete(this.state.tea.key);
     this.props.history.push("/");
   }
 
@@ -186,7 +187,9 @@ class Edit extends React.Component {
 
   handleSave() {
     // Validate
-    TeaRepository.set(this.state);
+    const key = TeaRepository.set(this.state.tea);
+    const location = '/timer/' + key;
+    this.state.history.push(location)
   }
 
   render() {
@@ -197,23 +200,33 @@ class Edit extends React.Component {
           onOkay={this.handleDelete.bind(this)}
           onToggle={this.handleToggleModal.bind(this)}
           open={this.state.showDeleteModal}
-          text={'Delete ' + this.state.name + '?'}/>
+          text={'Delete ' + this.state.tea.name + '?'}/>
       </div>
     );
+    let backLink = null
+    if ( this.state.tea.key !== undefined ) {
+      backLink = (
+        <BackLink to={'/timer/' + this.state.tea.key} />
+      );
+    } else {
+      backLink = (
+        <BackLink to={'/'} />
+      )
+    }
     return (
       <div style={{overflow: 'auto'}}>
-        <Helmet title={this.state.name.length > 0 ? 'Editing ' + this.state.name : 'Edit'} />
-        <BackLink to={'/timer/' + this.state.key}/>
+        <Helmet title={this.state.tea.name.length > 0 ? 'Editing ' + this.state.tea.name : 'Edit'} />
+        { backLink }
 
-        <NameInput value={this.state.name} onChange={this.handleNameChange}/>
+        <NameInput value={this.state.tea.name} onChange={this.handleNameChange}/>
 
-        { this.state.key !== undefined ? deleteButton : null }
+        { this.state.tea.key !== undefined ? deleteButton : null }
 
-        { this.state.times.map((time, index) =>
+        { this.state.tea.times.map((time, index) =>
           <InfusionInput
             key={index}
             number={index+1}
-            showAdd={index+1 === this.state.times.length}
+            showAdd={index+1 === this.state.tea.times.length}
             onChange={e => this.handleTimeChange(index, e.target.value)}
             onAdd={() => this.handleTimeAdd()}
             onDelete={() => this.handleTimeDelete(index)}
@@ -221,11 +234,9 @@ class Edit extends React.Component {
           />
         ) }
 
-        <Link to={'/timer/' + this.state.key}>
-          <Button large className="green" waves="light" onClick={this.handleSave}>
-            Save <Icon right>send</Icon>
-          </Button>
-        </Link>
+        <Button large className="green" waves="light" onClick={this.handleSave}>
+          Save <Icon right>send</Icon>
+        </Button>
       </div>
     );
   }

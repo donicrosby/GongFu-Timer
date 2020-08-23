@@ -27,12 +27,17 @@ const TeaRepository = {
   },
 
   set: value => {
-    if (!value.key) {
-      value.key = shortid.generate();
-    }
     let teas = getTeas();
+    if (!value.key) {
+      let key = shortid.generate();
+      while (key in teas) {
+        key = shortid.generate();
+      }
+      value.key = key;
+    }
     teas[value.key] = value;
-    return setTeas(teas);
+    setTeas(teas);
+    return value.key;
   },
 
   getNew: () => {

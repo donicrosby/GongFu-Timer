@@ -45,7 +45,7 @@ const CollectionTeaItem = props => {
     className: 'btn-flat waves-effect waves-green'
   };
   return (
-    <Item>
+    <Item key={props.editId}>
       <TeaLink to={'/timer/' + props.editId}>
         { props.name }
         <br/><Times>{ props.times.map(Format.formatSeconds).join(', ') }</Times>
