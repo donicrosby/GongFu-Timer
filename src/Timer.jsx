@@ -12,12 +12,13 @@ import FaviconProgress from './FaviconProgress';
 import ControlButtons from './ControlButtons';
 import Format from './Format';
 
+const Top = styled.div`
+  position: absolute;
+  bottom: initial;
+  top: 23px;
+`;
+
 const EditButton = props => {
-  const Top = styled.div`
-    position: absolute;
-    bottom: initial;
-    top: 23px;
-  `;
   return (
     <Top className="fixed-action-btn">
       <Link to={props.to}>
@@ -28,6 +29,17 @@ const EditButton = props => {
     </Top>
   );
 };
+
+const Title = styled.h1`
+  font-size: 3.5em;
+`;
+const SubTitle = styled.h2`
+  font-size: 2.5em;
+`;
+const Wrapper = styled.div`
+  position: relative;
+  text-align: center;
+`;
 
 class Timer extends React.Component {
   constructor({match, props}) {
@@ -46,6 +58,7 @@ class Timer extends React.Component {
       tea: tea,
       infusion: 1,
       hourglass_state: 'ready',
+      teaId: match.params.teaId
     };
   }
 
@@ -153,16 +166,6 @@ class Timer extends React.Component {
   }
 
   render() {
-    const Title = styled.h1`
-      font-size: 3.5em;
-    `;
-    const SubTitle = styled.h2`
-      font-size: 2.5em;
-    `;
-    const Wrapper = styled.div`
-      position: relative;
-      text-align: center;
-    `;
     return (
       <div>
         <BackLink to="/"/>

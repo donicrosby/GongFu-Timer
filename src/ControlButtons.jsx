@@ -2,10 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import {Button, Icon} from 'react-materialize';
 
+const SpacedButton = styled(Button)`
+  margin: 0 15px;
+`;
+
+const Wrapper = styled.div`
+  text-align: center;
+`;
+
 const ControlButton = props => {
-  const SpacedButton = styled(Button)`
-    margin: 0 15px;
-  `;
   var {icon, ...other} = props;
   return (
     <SpacedButton floating waves="light" {...other}>
@@ -45,10 +50,6 @@ const ControlButtons = props => {
     default:
       throw new Error('Unknown state');
   }
-
-  const Wrapper = styled.div`
-    text-align: center;
-  `;
 
   return <Wrapper>{buttons}</Wrapper>;
 }

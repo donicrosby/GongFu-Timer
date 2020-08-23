@@ -2,14 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Format from './Format';
 
+
 class TimeDisplay extends React.Component {
+
   setTime(time) {
     if (!this.timeComponent) { return; }
     this.timeComponent.textContent = Format.formatTime(time);
   }
 
-  render() {
-    const Display = styled.div`
+  getDisplay() {
+    return (
+    styled.div`
       position: absolute;
       left: 0;
       width: 100%;
@@ -22,11 +25,14 @@ class TimeDisplay extends React.Component {
       @media (min-width: 765px) {
         top: ${this.props.state === 'done' ? '70px' : '155px'};
         font-size: ${this.props.state === 'done' ? '242px' : '115px'};
-      }
-    `;
+      }`
+    )
+  }
+
+  render() {
     const time = <span ref={ref => this.timeComponent = ref}/>;
     const checkmark = <span>&#10003;</span>;
-
+    const Display = this.getDisplay();
     return <Display>{this.props.state === 'done' ? checkmark : time}</Display>;
   }
 }

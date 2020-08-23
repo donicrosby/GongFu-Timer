@@ -26,10 +26,6 @@ const TeaRepository = {
     return Object.values(teas).sort(item => item.order);
   },
 
-  getNew: () => {
-    return EMPTY;
-  },
-
   set: value => {
     if (!value.key) {
       value.key = shortid.generate();
@@ -37,6 +33,10 @@ const TeaRepository = {
     let teas = getTeas();
     teas[value.key] = value;
     return setTeas(teas);
+  },
+
+  getNew: () => {
+    return EMPTY;
   },
 
   delete: key => {

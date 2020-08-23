@@ -1,30 +1,46 @@
 {
   "name": "gongfu-timer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
-  "author": "Stijn Ruts",
+  "author": "Doni Crosby",
   "dependencies": {
-    "ordinal": "^1.0.2",
-    "push.js": "^0.0.13",
-    "react": "^15.5.4",
-    "react-helmet": "^5.0.3",
-    "react-materialize": "^0.18.3",
-    "react-router-dom": "^4.1.1",
-    "react-snapshot": "^1.0.4",
-    "shortid": "^2.2.8",
-    "store": "^2.0.4",
-    "styled-components": "^1.4.6"
+    "hydrate": "^1.0.0",
+    "materialize-css": "^1.0.0",
+    "ordinal": "^1.0.3",
+    "push.js": "^1.0.12",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
+    "react-materialize": "^3.9.2",
+    "react-router-dom": "^5.2.0",
+    "shortid": "^2.2.15",
+    "store": "^2.0.12",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
-    "favicons": "^4.8.3",
-    "react-scripts": "^1.0.3"
+    "favicons": "^6.2.0",
+    "react-scripts": "^3.4.3",
+    "react-snap": "^1.23.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && react-snapshot",
     "test": "react-scripts test --env=jsdom",
     "favicons": "node favicons/generate.js",
+    "postbuild": "react-snap",
     "publish": "npm run build && surge ./build https://gongfu-timer.surge.sh"
   },
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

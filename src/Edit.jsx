@@ -2,51 +2,95 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import {Row, Col, Button, Icon, Input} from 'react-materialize';
+import M from 'materialize-css';
+import {Row, Col, Button, Icon, TextInput, Modal} from 'react-materialize';
 import BackLink from './BackLink';
 import TeaRepository from './TeaRepository';
 import Format from './Format';
 
 const NameInput = props => (
   <Row>
-    <Input s={12} label={false} style={{fontSize: '1.8rem'}}
+    <TextInput s={12} label={false} style={{fontSize: '1.8rem'}}
       value={props.value} onChange={props.onChange}/>
   </Row>
 );
 
-const DeleteButton = () => {
-  const Top = styled.div`
-    position: absolute;
-    bottom: initial;
-    top: 23px;
-  `;
-  return (
-    <Top className="fixed-action-btn" data-target="modal-delete">
-      <Button floating className="red" waves="light">
-        <Icon>delete</Icon>
-      </Button>
-    </Top>
-  );
-};
+const Top = styled.div`
+  position: absolute;
+  bottom: initial;
+  top: 23px;
+`;
+
+const StyledModal = styled(Modal)`
+  outline: none;
+`
+
+const ModalButton = styled(Button)`
+  margin-left: 15px;
+  margin-right: 15px;
+  float: right;
+`;
+// const DeleteButton = (props) => {
+//   return (
+//
+//   );
+// };
 
 const DeleteModal = (props) => (
-  <div id="modal-delete" className="modal">
-    <div className="modal-content">
-      <h4>{props.text}</h4>
+  <StyledModal
+    actions={[
+    <div>
+      <ModalButton floating className="red" waves="light" onClick={props.onToggle}>
+        <Icon>close</Icon>
+      </ModalButton>
+      <ModalButton floating className="green" waves="light" onClick={props.onOkay}>
+        <Icon>check</Icon>
+      </ModalButton>
     </div>
-    <div className="modal-footer">
-      <Link className="modal-action modal-close waves-effect waves-green btn-flat"
-            to="/" onClick={props.onAgree}>
-        Agree
-      </Link>
-    </div>
-  </div>
+    ]}
+    bottomSheet={false}
+    fixedFooter={false}
+    header={props.text}
+    open={props.open}
+    options={{
+      dismissible: false,
+      endingTop: '10%',
+      inDuration: 250,
+      onCloseEnd: null,
+      onCloseStart: null,
+      onOpenEnd: null,
+      onOpenStart: null,
+      opacity: 0.5,
+      outDuration: 250,
+      preventScrolling: true,
+      startingTop: '4%'
+    }}
+    trigger={
+      <Top className="fixed-action-btn">
+        <Button floating className="red" waves="light" onClick={props.onToggle}>
+          <Icon>delete</Icon>
+        </Button>
+      </Top>
+    }/>
+    // <div className="modal-footer">
+    //   <Link className="modal-action modal-close waves-effect waves-green btn-flat"
+    //         to="/" onClick={props.onAgree}>
+    //     Agree
+    //   </Link>
+    // </div>
+  // <div id="modal-delete" className="modal">
+  //   <div className="modal-content">
+  //     <h4></h4>
+  //   </div>
+  //
+  // </div>
 );
 
+const OffsetButton = styled(Button)`
+  margin-left: 2.5em;
+`;
+
 const ActionButton = props => {
-  const OffsetButton = styled(Button)`
-    margin-left: 2.5em;
-  `;
   const AddButton =
     <OffsetButton floating large className="green" waves="light" icon="add"
                   onClick={props.onAdd}/>;
@@ -86,16 +130,18 @@ class Edit extends React.Component {
     let tea = TeaRepository.get(match.params.teaId);
     if (tea === undefined) { tea = TeaRepository.getNew(); }
     this.state = tea;
-
+    this.state["showDeleteModal"] = false
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleTimeAdd = this.handleTimeAdd.bind(this);
     this.handleTimeDelete = this.handleTimeDelete.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleSave(tea);
   }
 
   componentDidMount() {
+    M.AutoInit();
     $('.modal').modal(); // eslint-disable-line no-undef
   }
 
@@ -131,6 +177,12 @@ class Edit extends React.Component {
 
   handleDelete() {
     TeaRepository.delete(this.state.key);
+    this.props.history.push("/");
+  }
+
+  handleToggleModal() {
+    let modalValue = !this.state.showDeleteModal
+    this.setState({showDeleteModal: modalValue});
   }
 
   handleSave() {
@@ -139,11 +191,14 @@ class Edit extends React.Component {
   }
 
   render() {
+
     const deleteButton = (
       <div>
-        <DeleteButton/>
-        <DeleteModal text={'Delete ' + this.state.name + '?'}
-          onAgree={this.handleDelete}/>
+        <DeleteModal
+          onOkay={this.handleDelete.bind(this)}
+          onToggle={this.handleToggleModal.bind(this)}
+          open={this.state.showDeleteModal}
+          text={'Delete ' + this.state.name + '?'}/>
       </div>
     );
     return (
@@ -153,7 +208,7 @@ class Edit extends React.Component {
 
         <NameInput value={this.state.name} onChange={this.handleNameChange}/>
 
-        {this.state.key !== undefined ? deleteButton : null}
+        { this.state.key !== undefined ? deleteButton : null }
 
         { this.state.times.map((time, index) =>
           <InfusionInput

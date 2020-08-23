@@ -2,15 +2,26 @@ var favicons = require('favicons');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
+var source = './favicons/favicon.svg';
 var configuration = {
-  appName: 'GongFu Timer',
-  appDescription: 'A timer application for use in GongFu tea sessions.',
-  developerName: 'Stijn Ruts',
-  theme_color: "#000000",
-  background_color: "#FFFFFF",
-  display: "standalone",
-  start_url: "./index.html",
   path: "/favicons/",
+  appName: 'GongFu Timer',
+  apShortName: 'GongFu',
+  appDescription: 'A timer application for use in GongFu tea sessions.',
+  developerName: 'Doni Crosby',
+  dir: "auto",
+  lang: "en-US",
+  background: "#FFFFFF",
+  theme_color: "#000000",
+  appleStatusBarStyle: "black-translucent",
+  display: "standalone",
+  orientation: "any",
+  scope: "/",
+  start_url: "./index.html",
+  version: "0.2.0",
+  logging: false,
+  pixel_art: false,
+  loadManifestWithCredentials: false,
   icons: {
     android: true,
     appleIcon: true,
@@ -23,7 +34,6 @@ var configuration = {
   }
 };
 
-var source = './favicons/favicon.svg';
 var destination = './public/favicons/';
 var component = './src/Favicons.jsx';
 

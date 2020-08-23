@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "0.2.0",
   "name": "GongFu Timer",
   "description": "A timer application for use in GongFu tea sessions.",
   "icons": {
@@ -8,7 +8,7 @@
     "512": "/favicons/firefox_app_512x512.png"
   },
   "developer": {
-    "name": "Stijn Ruts",
+    "name": "Doni Crosby",
     "url": null
   }
 }
