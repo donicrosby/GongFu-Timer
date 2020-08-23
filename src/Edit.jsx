@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import { withRouter } from "react-router";
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import M from 'materialize-css';
 import {Row, Col, Button, Icon, TextInput, Modal} from 'react-materialize';
 import BackLink from './BackLink';
 import TeaRepository from './TeaRepository';
@@ -142,7 +141,6 @@ class Edit extends React.Component {
   }
 
   componentDidMount() {
-    M.AutoInit();
     $('.modal').modal(); // eslint-disable-line no-undef
   }
 

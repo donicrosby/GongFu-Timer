@@ -22,7 +22,6 @@ const App = () => (
     <div>
       <Helmet defaultTitle="GongFu Timer"/>
       { Favicons }
-
       <Switch>
         <Route exact path="/" component={Overview}/>
         <Route path="/edit/:teaId?" component={Edit}/>
