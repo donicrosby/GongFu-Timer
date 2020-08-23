@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import styled from 'styled-components';
-import {Button, Collection, CollectionItem} from 'react-materialize';
+import {Button, Collection, CollectionItem, Icon} from 'react-materialize';
 import TeaRepository from './TeaRepository';
 import Format from './Format';
 
@@ -55,9 +55,11 @@ const CollectionTeaItem = props => {
 };
 
 const AddTeaLink = () => (
-  <div className="right-align">
+  <div className="right-align" style={{padding: "10px"}}>
     <Link to="/edit">
-      <Button floating large className="green" waves="light" icon="add" />
+      <Button floating large className="green" waves="light" >
+        <Icon>add</Icon>
+      </Button>
     </Link>
   </div>
 );

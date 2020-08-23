@@ -29,6 +29,13 @@ const ModalButton = styled(Button)`
   margin-right: 15px;
   float: right;
 `;
+
+
+const ModalHeader = styled.h1`
+  font-size: 1.6em;
+  padding: 12px 20px;
+  margin: 0;
+`;
 // const DeleteButton = (props) => {
 //   return (
 //
@@ -49,8 +56,10 @@ const DeleteModal = (props) => (
     ]}
     bottomSheet={false}
     fixedFooter={false}
-    header={props.text}
     open={props.open}
+    header={(
+          <ModalHeader className="green white-text">{props.text}</ModalHeader>
+        )}
     options={{
       dismissible: false,
       endingTop: '10%',
@@ -70,7 +79,8 @@ const DeleteModal = (props) => (
           <Icon>delete</Icon>
         </Button>
       </Top>
-    }/>
+    }>
+  </StyledModal>
     // <div className="modal-footer">
     //   <Link className="modal-action modal-close waves-effect waves-green btn-flat"
     //         to="/" onClick={props.onAgree}>
@@ -91,8 +101,10 @@ const OffsetButton = styled(Button)`
 
 const ActionButton = props => {
   const AddButton =
-    <OffsetButton floating large className="green" waves="light" icon="add"
-                  onClick={props.onAdd}/>;
+    <OffsetButton floating large className="green" waves="light"
+                  onClick={props.onAdd}>
+      <Icon>add</Icon>
+    </OffsetButton>;
   const DeleteButton =
     <OffsetButton floating large className="transparent z-depth-0" waves="light"
                   onClick={props.onDelete}>
@@ -150,12 +162,14 @@ class Edit extends React.Component {
   }
 
   handleTimeChange(index, value) {
-    let times = {...this.state.tea.times};
+    let times = [...this.state.tea.times];
     times[index] = parseInt(value, 10);
-    this.setState({times: times});
+    let tea = this.state.tea
+    tea.times = times
+    this.setState({tea: tea});
   }
   handleTimeAdd() {
-    let times = {...this.state.tea.times};
+    let times = [...this.state.tea.times];
     let newValue = 10;
     if (times.length === 1) {
       newValue = times[0] + 10;
@@ -167,12 +181,16 @@ class Edit extends React.Component {
       newValue = last + diff;
     }
     times.push(newValue);
-    this.setState({times: times});
+    let tea = this.state.tea
+    tea.times = times
+    this.setState({tea: tea});
   }
   handleTimeDelete(index) {
-    let times = {...this.state.tea.times};
+    let times = [...this.state.tea.times];
     times.splice(index, 1);
-    this.setState({times: times});
+    let tea = this.state.tea
+    tea.times = times
+    this.setState({tea: tea});
   }
 
   handleDelete() {
