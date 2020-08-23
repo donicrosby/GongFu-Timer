@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "postbuild": "react-snap",
     "favicons": "node favicons/generate.js",
     "publish": "npm run build && surge ./build https://gongfu-timer.surge.sh"
   },
